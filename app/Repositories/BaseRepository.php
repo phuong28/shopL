@@ -24,11 +24,18 @@ abstract class BaseRepository implements RepositoryInterface
     /**
      * Set model
      */
+
+
     public function setModel()
     {
         $this->model = app()->make(
             $this->getModel()
         );
+    }
+
+    public function builder()
+    {
+        return $this->model->newQuery();
     }
 
     /**
@@ -52,6 +59,7 @@ abstract class BaseRepository implements RepositoryInterface
         $result = $this->model->find($id);
         return $result;
     }
+    
 
     /**
      * Create a new model

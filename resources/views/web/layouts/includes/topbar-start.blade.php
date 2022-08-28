@@ -53,7 +53,7 @@
         </div>
         <div class="col-lg-3 col-6 text-right">
             
-            <a href="<?php echo url('cart') ?>" class="btn border">
+            <a href="{{route('view')}}" class="btn border">
                 <i class="fas fa-shopping-cart text-primary"></i>
                 
             </a>

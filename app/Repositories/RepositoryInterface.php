@@ -38,4 +38,10 @@ interface RepositoryInterface
      * @return mixed
      */
     public function delete($id);
+    
+    /**
+     * Get query builder
+     * @return \Illuminate\Contracts\Database\Eloquent\Builder
+     */
+    public function builder();
 }

@@ -23,7 +23,7 @@ class RegisterRequest extends FormRequest
      */
     public function rules()
     {
-        
+
         return [
             'name' => 'required',
             'email' => 'required|email|unique:users',
@@ -31,23 +31,23 @@ class RegisterRequest extends FormRequest
         ];
     }
     public function messages()
-{
-    return [
-        'email.required' => ':attribute không được để đống',
-        'email.unique' => ':attribute email đã tồn tại',
-        'email.email' => ':attribute không đúng định dạng',
-        'name.required' => ':attribute không để trống',
-        'password.required'=>':attribute không để trống',
-        'password.min'=>':attribute tối thiểu 6 ký tự',
-        'password.confirm'=>':attribute phải trùng nhau',
-    ];
-}
-public function attributes()
-{
-    return [
-        'email' => ' Địa chỉ email',
-        'name'=>'Tên',
-        'password'=>'Mật khẩu'
-    ];
-}
+    {
+        return [
+            'email.required' => ':attribute không được để đống',
+            'email.unique' => ':attribute email đã tồn tại',
+            'email.email' => ':attribute không đúng định dạng',
+            'name.required' => ':attribute không để trống',
+            'password.required' => ':attribute không để trống',
+            'password.min' => ':attribute tối thiểu 6 ký tự',
+            'password.confirm' => ':attribute phải trùng nhau',
+        ];
+    }
+    public function attributes()
+    {
+        return [
+            'email' => ' Địa chỉ email',
+            'name' => 'Tên',
+            'password' => 'Mật khẩu'
+        ];
+    }
 }

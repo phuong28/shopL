@@ -3,26 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Repositories\ProductsRepository;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        // $this->middleware('auth');
+    private $productsRepository;
+    
+    public function __construct(ProductsRepository $productsRepository){
+        $this->productsRepository=$productsRepository ;
     }
-
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function index()
+    public function index(Request $request)
     {
-        return view('web.homepage.index');
+        $products=$this->productsRepository->showProducts();
+        $topSell=$this->productsRepository->topSell();
+        return view('web.homepage.index', ['products' =>$products,'topSell'=>$topSell]);
     }
+    
 }
