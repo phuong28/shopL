@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Hash;
 
 class LoginRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class LoginRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +25,27 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'email' => 'required|email|exists:users,email',
+            'password' => 'required|min:6',
+        ];
+    }
+    public function messages()
+    {   
+        $password= Hash::make('password');
+        return [
+            'email.required' => ':attribute không được để đống',
+            'email.email' => ':attribute không đúng định dạng',
+            "email.exists" => ":attribute không tồn tại",
+            'password.required' => ':attribute không để trống',
+            'password.min' => ':attribute tối thiểu 6 ký tự',
+            
+        ];
+    }
+    public function attributes()
+    {
+        return [
+            'email' => ' Địa chỉ email',
+            'password' => 'Mật khẩu'
         ];
     }
 }

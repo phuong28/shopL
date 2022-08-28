@@ -3,38 +3,54 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\Request;
+use Illuminate\Foundation\Auth\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\LoginRequest;
 
 class LoginController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles authenticating users for the application and
-    | redirecting them to your home screen. The controller uses a trait
-    | to conveniently provide its functionality to your applications.
-    |
-    */
-
     use AuthenticatesUsers;
-
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
+    /*
+     |--------------------------------------------------------------------------
+     | Login Controller
+     |--------------------------------------------------------------------------
+     |
+     | This controller handles authenticating users for the application and
+     | redirecting them to your home screen. The controller uses a trait
+     | to conveniently provide its functionality to your applications.
+     |
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public function viewLogin()
     {
-        $this->middleware('guest')->except('logout');
+        return view('web.login.index');
+    }
+    public function login(LoginRequest $request)
+    {
+        $request->validated();
+        $data = $request->all();
+        if (Auth::attempt(['email' => $data['email'], 'password' => $data['password']],$request->remember_me)) {
+            // Success
+            return redirect('/');
+        }
+        else {
+            // Go back on error (or do what you want)
+            $this->sendFailedLoginResponse($request);
+        }
+    }
+    protected function sendFailedLoginResponse(Request $request)
+    {
+        $user = User::where($this->username(), $request->email)->first();
+        if ($user && !Hash::check($user->password, $request->password)) {
+            $validator = Validator::make([], []);
+            $validator->errors()->add('password', __('Mật khẩu không chính xác.'));
+            return redirect('/login')
+                ->withErrors($validator)
+                ->withInput();
+        }
+        return redirect('/login');
     }
 }

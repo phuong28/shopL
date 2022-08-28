@@ -1,7 +1,5 @@
 @extends('web/layouts.app')
-{{-- <?php require_once('app/Models/Product.php') ?>
-<?php require_once('app/Models/Categories.php') ?>
-<?php require_once('app/Models/Cart.php') ?> --}}
+
 @section('slider') 
 
 <div id="header-carousel" class="carousel slide" data-ride="carousel">
@@ -17,7 +15,7 @@
             </div>
         </div>
         <div class="carousel-item" style="height: 410px;">
-            <img class="img-fluid" src="<?php echo asset('assets/web/img/carousel-2.jpg') ?>" alt="Image">
+            <img class="img-fluid" src="{{ asset('assets/web/img/carousel-2.jpg')}}" alt="Image">
             <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                 <div class="p-3" style="max-width: 700px;">
                     <h4 class="text-light text-uppercase font-weight-medium mb-3">10% Off Your First Order</h4>
@@ -39,9 +37,7 @@
     </a>
 </div>
 @endsection
-
-
-<@section('content')
+@section('content')
     <!-- Featured Start -->
     <div class="container-fluid pt-5">
         <div class="row px-xl-5 pb-3">
@@ -77,26 +73,17 @@
     <!-- Categories Start -->
     <div class="container-fluid pt-5">
         <div class="row px-xl-5 pb-3">
-            {{-- <?php
-                    $product = new Product();
-                    $products = $product->findAll()->hydrate();
-                    $categories= new Categories();
-                    $categoriess= $categories->findAll()->hydrate();
-                ?> --}}
-             
-            {{-- <?php foreach($products as $product): ?> --}}
+            @foreach($topSell as $topsell)
             <div class="col-lg-4 col-md-6 pb-1">
                 <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
-                    <p class="text-right">" 3 Products"</p>
+                    <p class="text-right">{{$topsell->quantity}}</p>
                     <a href="" class="cat-img position-relative overflow-hidden mb-3">
-                        <img class="img-fluid" src="<?php echo asset('assets/web/img/carousel-2.jpg'); ?>" alt="">
+                        <img class="img-fluid" src="<?php echo asset("storage/{$topsell->image}"); ?>" alt="">
                     </a>
-                    <h5 class="font-weight-semi-bold m-0">Áo dài</h5>
+                    <h5 class="font-weight-semi-bold m-0">{{$topsell->name}}</h5>
                 </div>
             </div>
-            {{-- <?php endforeach ?> --}}
-            
-            
+            @endforeach
         </div>
     </div>
     <!-- Categories End -->
@@ -134,59 +121,16 @@
     <div class="container-fluid pt-5">
         <div class="text-center mb-4">
             <h2 class="section-title px-5"><span class="px-2">Trandy Products</span></h2>
-        </div>
-       {{-- <?php
-                                        if (isset($_GET["page"])) {
-                                            $page  = $_GET["page"]; 
-                                            
-                                            } 
-                                            else{ 
-                                            $page=1;
-                                            
-                                            };  
-                                          ?>  --}}
-                                        
+        </div>                              
         <div class="row px-xl-5 pb-3">
             <div class="row px-xl-5 pb-3">
-                {{-- <?php include('views/web/includes/product.php') ?> --}}
+                @include('web.includes.product')
             </div>
         </div>   
         <div class="col-12 pb-1">
-        {{-- <?php $product = new Product(); 
-		                                $products = $product->findAll()->hydrate();
-                                        $cnt = count($products);
-                                        $limit = 4; 
-                                        $total_pages=ceil($cnt/$limit);
-                                        ?> --}}
             <nav aria-label="Page navigation">
                 <ul class="pagination justify-content-center mb-3">
-                    <!-- <li class="page-item disabled">
-                        <a class="page-link" href="#" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                    </li>
-                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </li> -->
-                    {{-- <?php 
-                        
-
-                        for($i=1 ; $i<=$total_pages;$i++){
-                            
-                              ?>  <li class="page-item "   ><a class="page-link" href="<?php echo url("homepage/index&page={$i}") ?>"><?php echo $i?> </a></li><?php 
-                            
-                            
-                            
-                        }
-
-                    ?> --}}
+                    {{ $products->links() }}
                 </ul>
             </nav>
         </div>
