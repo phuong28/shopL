@@ -19,6 +19,11 @@ class ProductsRepository extends BaseRepository
         $products = $this->model->paginate(4);
         return $products;
     }
+    public function showShop()
+    {
+        $products = $this->model->paginate(6);
+        return $products;
+    }
     public function topSell()
     {
         //SELECT`order_detail`. product_name as name, Sum(`order_detail`.quantity) as quantities , products.images as image FROM `order_detail` INNER JOIN products on products.products_id=order_detail.product_id GROUP by product_id ORDER by quantities DESC Limit 4;
@@ -44,6 +49,9 @@ class ProductsRepository extends BaseRepository
         $product = $this->model->whereIn('products_id',$iDs)->get();
         return $product;
     }
-
+    public function getAllProducts(){
+        $listProducts=$this->model->paginate(6)->all();
+        return $listProducts;
+    }
 
 }
