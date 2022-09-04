@@ -25,7 +25,8 @@
         <div class="col-lg-7 mb-5">
             <div class="contact-form">
                 <div id="success"></div>
-                <form name="sentMessage" id="contactForm" novalidate="novalidate" action="<?php echo url('contact/create') ?>" method="POST">
+                <form name="sentMessage" id="contactForm" novalidate="novalidate" action="{{route('requestContact')}}" method="POST">
+                    {{ csrf_field() }}
                     <div class="control-group">
                         <input type="text" class="form-control" id="name" placeholder="Your Name"
                             required="required" data-validation-required-message="Please enter your name"  name="name"/>

@@ -22,3 +22,4 @@ Route::get('/checkout', [App\Http\Controllers\Web\CheckoutController::class , 'i
 Route::post('/order', [App\Http\Controllers\Web\OrderController::class , 'create'])->name('order');
 Route::get('/order/back', [App\Http\Controllers\Web\OrderController::class , 'back'])->name('orderback');
 Route::get('/contact', [App\Http\Controllers\Web\ContactController::class , 'index'])->name('contact');
+Route::post('/contact/create', [App\Http\Controllers\Web\ContactController::class , 'create'])->name('requestContact');
