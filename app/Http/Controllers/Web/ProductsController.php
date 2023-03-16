@@ -24,5 +24,10 @@ class ProductsController extends Controller
         $viewProduct=$this->productsRepository->viewDetail($id);
         return view('web.product.show',['product'=>$viewProduct,'products'=>$products]);
     }
+    public function search(Request $request){
+        $searchProducts = $this->productsRepository->searchProduct($request->search);
+        // dd($searchProducts);
+        return view('web.product.search',compact('searchProducts'));
+    }
     
 }

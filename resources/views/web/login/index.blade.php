@@ -9,14 +9,14 @@
 
         <div class="row justify-content-md-center px-xl-5">
             @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <form class="col-md-6 col-12" action="/login" method="POST">
                 {{ csrf_field() }}
                 <div class="form-group">
@@ -42,7 +42,7 @@
                     <label class="form-check-label" for="exampleCheck1">Remember me</label>
                 </div>
 
-                <button type="submit"  class="btn btn-primary">Login</button>
+                <button type="submit" class="btn btn-primary">Login</button>
 
             </form>
         </div>

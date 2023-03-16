@@ -39,7 +39,7 @@
     </div>
     <!-- Navbar End -->
     @yield('content')
+    
     @include('web/layouts/includes/footer')
 </body>
-
 </html>

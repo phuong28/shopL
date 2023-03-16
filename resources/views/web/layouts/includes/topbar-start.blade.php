@@ -38,7 +38,7 @@
             </a>
         </div>
         <div class="col-lg-6 col-6 text-left">
-            <form action="<?php echo url('product/search')?>" method="POST">
+            <form action="{{route('search-products')}}" method="GET">
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search for products" name="search">
                     <button type="submit">

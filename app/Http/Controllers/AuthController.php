@@ -9,11 +9,6 @@ use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Auth;
 
-
-
-
-
-
 class AuthController extends Controller
 {
     /**

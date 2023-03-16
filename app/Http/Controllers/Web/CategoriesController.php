@@ -17,5 +17,4 @@ class CategoriesController extends Controller
         return view('web.categories.show', ['products' =>$products]);
     }
     
-    
 }

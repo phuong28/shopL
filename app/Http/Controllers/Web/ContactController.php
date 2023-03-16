@@ -6,6 +6,7 @@ use Illuminate\Routing\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 use App\Models\Contact;
+use App\Http\Requests\ContactRequest;
 
 
 
@@ -33,7 +34,8 @@ class ContactController extends Controller
     {
         return view('web.contact.index');
     }
-    public function create(Request $request){
+    public function create(ContactRequest $request){
+        $validate=$request->validated();
         $data=$request->all();
         $newContact=Contact::create([
             'name'=>$data['name'],
@@ -42,5 +44,4 @@ class ContactController extends Controller
         ]);
         return redirect()->to('');
     }
-   
 }

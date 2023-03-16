@@ -32,14 +32,36 @@ class LoginController extends Controller
     {
         $request->validated();
         $data = $request->all();
-        if (Auth::attempt(['email' => $data['email'], 'password' => $data['password']],$request->remember_me)) {
-            // Success
-            return redirect('/');
+        $user = User::where($this->username(), $request->username)->first();
+        $validator = Validator::make([], []);
+        if(auth()->attempt(['email'=>$data["email"], 'password'=>$data['password']],$request->remember_me))
+        {
+            if(auth()->user()->role == 'admin')
+            {
+                return redirect()->route('home.admin');
+            }
+            else
+            {
+                return redirect()->route('home');
+            }
         }
-        else {
-            // Go back on error (or do what you want)
-            $this->sendFailedLoginResponse($request);
+        else
+        {
+            if(!$user){
+                $validator->errors()->add('password', __('Tài khoản không tồn tại.'));
+                return redirect('/login')
+                    ->withErrors($validator)
+                    ->withInput();
+            }
+            if (!Hash::check($request->password, $user->password)) {
+                $validator->errors()->add('password', __('Mật khẩu không chính xác.'));
+                return redirect('/login')
+                    ->withErrors($validator)
+                    ->withInput();
+            }
         }
+        Auth::login($user, $request->get('remember'));
+        $this->authenticated($request, $user);
     }
     protected function sendFailedLoginResponse(Request $request)
     {

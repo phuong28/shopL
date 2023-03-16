@@ -21,4 +21,5 @@ class CategoriesRepository extends BaseRepository
         $categories = $this->model->with(['products'])->where('slug', $slug)->first();
         return $categories->products;
     }
+    
 }

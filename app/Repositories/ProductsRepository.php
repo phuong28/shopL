@@ -24,6 +24,14 @@ class ProductsRepository extends BaseRepository
         $products = $this->model->paginate(6);
         return $products;
     }
+    public function shopProduct($slug){
+        $products = $this->model->where('slug',$slug)->get();
+        return $products;
+    }
+    public function showShopProduct($slug ){
+        $products = $this->model->where('slug',$slug)->paginate(3)->appends(request()->query());
+        return $products;
+    }
     public function topSell()
     {
         //SELECT`order_detail`. product_name as name, Sum(`order_detail`.quantity) as quantities , products.images as image FROM `order_detail` INNER JOIN products on products.products_id=order_detail.product_id GROUP by product_id ORDER by quantities DESC Limit 4;
@@ -36,6 +44,11 @@ class ProductsRepository extends BaseRepository
             ->limit(6)
             ->get();
         return $topSell;
+    }
+    // SELECT * from products WHERE slug='ao_coc_tay' ORDER by price ASC
+    public function sortIn($slug){
+        $sortIn=$this->model->where('slug',$slug)->orderBy('price','DESC')->paginate(3)->appends(request()->query());
+        return $sortIn;
     }
     public function viewDetail($id){
         $viewProduct=$this->model->where('products_id',$id)->first();
@@ -52,6 +65,10 @@ class ProductsRepository extends BaseRepository
     public function getAllProducts(){
         $listProducts=$this->model->paginate(6)->all();
         return $listProducts;
+    }
+    public function searchProduct($data){
+        $result = $this->model->where('name','like','%'.$data.'%')->paginate(4);
+        return $result;
     }
 
 }

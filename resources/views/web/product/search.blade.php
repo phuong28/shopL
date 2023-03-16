@@ -3,7 +3,7 @@
     <div id="header-carousel" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active" style="height: 410px;">
-                <img class="img-fluid" src="{{ asset('assets/web/img/carousel-1.jpg') }}" alt="Image">
+                <img class="img-fluid" src="<?php echo asset('assets/web/img/carousel-1.jpg'); ?>" alt="Image">
                 <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                     <div class="p-3" style="max-width: 700px;">
                         <h4 class="text-light text-uppercase font-weight-medium mb-3">10% Off Your First Order</h4>
@@ -13,7 +13,7 @@
                 </div>
             </div>
             <div class="carousel-item" style="height: 410px;">
-                <img class="img-fluid" src="{{ asset('assets/web/img/carousel-2.jpg') }}" alt="Image">
+                <img class="img-fluid" src="<?php echo asset('assets/web/img/carousel-2.jpg'); ?>" alt="Image">
                 <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                     <div class="p-3" style="max-width: 700px;">
                         <h4 class="text-light text-uppercase font-weight-medium mb-3">10% Off Your First Order</h4>
@@ -39,27 +39,28 @@
 @section('content')
     <div class="container-fluid pt-5">
         <div class="row px-xl-5 pb-3">
-            @if (count($products) > 0)
-                @foreach ($products as $product)
+            <?php $searchProduct = $searchProducts->toArray() ; ?>
+            @if (count($searchProduct['data']) > 0)
+                @foreach ($searchProduct['data'] as $key => $product)
                     <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
                         <div class="row px-xl-4 pb-3">
                             <div class="card product-item border-0 mb-4">
                                 <div
                                     class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                                    <img class="img-fluid w-100" src="<?php echo asset("storage/{$product->images}"); ?>" alt="">
+                                    <img class="img-fluid w-100" src="{{asset("storage/{$product["images"]}")}}" alt="">
                                 </div>
                                 <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
-                                    <h6 class="text-truncate mb-3"><?php echo $product->name; ?></h6>
+                                    <h6 class="text-truncate mb-3">{{ $product["name"]}}</h6>
                                     <div class="d-flex justify-content-center">
-                                        <h6 class="text-muted ml-2">$ <?php echo $product->price; ?></h6>
+                                        <h6 class="text-muted ml-2">$ {{$product["price"]}} </h6>
                                     </div>
                                 </div>
                                 <div class="card-footer d-flex justify-content-between bg-light border">
-                                    <a href="{{route('products',['id'=>$product->products_id])}}" class="btn btn-sm text-dark p-0"><i
+                                    <a href="{{route('products',['id'=> $product["products_id"]])}}" class="btn btn-sm text-dark p-0"><i
                                             class="fas fa-eye text-primary mr-1"></i>View
                                         Detail</a>
                                     <!--  -->
-                                    <a href="{{ route('cart', ['id' => $product->products_id]) }}"
+                                    <a href="{{ route('cart', ['id' =>  $product["products_id"]]) }}"
                                         class="btn btn-sm text-dark p-0"><i
                                             class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
                                 </div>
@@ -74,7 +75,13 @@
                     </div>
                 </div>
             @endif
-
         </div>
+    </div>
+    <div class="col-12 pb-1">
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center mb-3">
+                {{ $searchProducts->links()}}
+            </ul>
+        </nav>
     </div>
 @endsection

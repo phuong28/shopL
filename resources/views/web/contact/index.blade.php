@@ -30,17 +30,23 @@
                     <div class="control-group">
                         <input type="text" class="form-control" id="name" placeholder="Your Name"
                             required="required" data-validation-required-message="Please enter your name"  name="name"/>
-                        <p class="help-block text-danger"></p>
+                        @error('name')
+                        <div class="help-block text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="control-group">
                         <input type="email" class="form-control" id="email" placeholder="Your Email"
                             required="required" data-validation-required-message="Please enter your email" name="email"/>
-                        <p class="help-block text-danger"></p>
+                            @error('email')
+                            <div class="help-block text-danger">{{ $message }}</div>
+                            @enderror
                     </div>
                     <div class="control-group">
                         <input type="text" class="form-control" id="subject" placeholder="message"
                             required="required" data-validation-required-message="Please enter a subject"name="subject" />
-                        <p class="help-block text-danger"></p>
+                            @error('subject')
+                            <div class="help-block text-danger">{{ $message }}</div>
+                            @enderror
                     </div>
                     
                     <div>

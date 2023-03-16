@@ -18,5 +18,7 @@ class HomeController extends Controller
         $topSell=$this->productsRepository->topSell();
         return view('web.homepage.index', ['products' =>$products,'topSell'=>$topSell]);
     }
-    
+    public function indexadmin(){
+        print("Đây là trang admin");
+    }
 }

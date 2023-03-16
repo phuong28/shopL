@@ -56,7 +56,7 @@
             </div>
             <h3 class="font-weight-semi-bold mb-4"><?php echo $product->price ?></h3>
             <p class="mb-4"><?php echo $product->description ?></p>
-            <form action="{{route('cart',['id'=>$product->products_id])}}" method="POST">
+            <form action="{{route('cart',['id'=>$product->products_id])}}" method="GET">
                 <div class="d-flex mb-3">
                     <p class="text-dark font-weight-medium mb-0 mr-3">Sizes:</p>
                     <div class="custom-control custom-radio custom-control-inline">
@@ -64,9 +64,6 @@
                             value="<?php echo $product->size ?>">
                         <label class="custom-control-label" for="size-1"><?php echo $product->size ?></label>
                     </div>
-
-
-
                 </div>
                 <div class="d-flex mb-4">
                     <p class="text-dark font-weight-medium mb-0 mr-3">Colors:</p>
@@ -76,11 +73,7 @@
                             value="<?php echo $product->color ?>">
                         <label class="custom-control-label" for="color-1"><?php echo $product->color ?></label>
                     </div>
-
-
                 </div>
-                
-
                 <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</button>
             </form>
 
@@ -154,10 +147,9 @@
                         <a href="{{route('products',['id'=>$product->products_id])}}"
                             class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View
                             Detail</a>
-                        <form action="{{route('cart',['id'=>$product->products_id])}}" method="POST">
-                            <button type="submit" class="btn btn-sm text-dark p-0"><i
-                                    class="fas fa-shopping-cart text-primary mr-1"></i>Add to Cart</button>
-                        </form>
+                        <a href="{{ route('cart', ['id' =>  $product["products_id"]]) }}"
+                                class="btn btn-sm text-dark p-0"><i
+                                    class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
                     </div>
                 </div>
                 @endforeach
